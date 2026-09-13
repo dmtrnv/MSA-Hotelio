@@ -1,0 +1,277 @@
+2026-07-24 23:05:58
+2026-07-24 23:05:58   .   ____          _            __ _ _
+2026-07-24 23:05:58  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+2026-07-24 23:05:58 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+2026-07-24 23:05:58  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+2026-07-24 23:05:58   '  |____| .__|_| |_|_| |_\__, | / / / /
+2026-07-24 23:05:58  =========|_|==============|___/=/_/_/_/
+2026-07-24 23:05:58  :: Spring Boot ::                (v3.2.5)
+2026-07-24 23:05:58
+2026-07-24 23:05:58 2026-07-24T20:05:58.607Z  INFO 1 --- [           main] c.hotelio.monolith.MonolithApplication   : Starting MonolithApplication v1.0.0 using Java 17.0.19 with PID 1 (/app/app.jar started by root in /app)
+2026-07-24 23:05:58 2026-07-24T20:05:58.612Z  INFO 1 --- [           main] c.hotelio.monolith.MonolithApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-07-24 23:05:59 2026-07-24T20:05:59.457Z  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-07-24 23:05:59 2026-07-24T20:05:59.524Z  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 5 JPA repository interfaces.
+2026-07-24 23:06:00 2026-07-24T20:06:00.067Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-07-24 23:06:00 2026-07-24T20:06:00.083Z  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-07-24 23:06:00 2026-07-24T20:06:00.083Z  INFO 1 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-07-24 23:06:00 2026-07-24T20:06:00.139Z  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-07-24 23:06:00 2026-07-24T20:06:00.141Z  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1433 ms
+2026-07-24 23:06:00 2026-07-24T20:06:00.365Z  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-07-24 23:06:00 2026-07-24T20:06:00.418Z  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-07-24 23:06:00 2026-07-24T20:06:00.470Z  INFO 1 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-07-24 23:06:00 2026-07-24T20:06:00.709Z  INFO 1 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-07-24 23:06:00 2026-07-24T20:06:00.739Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-07-24 23:06:00 2026-07-24T20:06:00.968Z  INFO 1 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4c04216f
+2026-07-24 23:06:00 2026-07-24T20:06:00.970Z  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-07-24 23:06:01 2026-07-24T20:06:01.917Z  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-07-24 23:06:01 Hibernate: drop table if exists app_user cascade
+2026-07-24 23:06:01 2026-07-24T20:06:01.932Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-07-24 23:06:01 2026-07-24T20:06:01.932Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "app_user" does not exist, skipping
+2026-07-24 23:06:01 Hibernate: drop table if exists booking cascade
+2026-07-24 23:06:01 2026-07-24T20:06:01.933Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-07-24 23:06:01 2026-07-24T20:06:01.933Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "booking" does not exist, skipping
+2026-07-24 23:06:01 Hibernate: drop table if exists hotel cascade
+2026-07-24 23:06:01 2026-07-24T20:06:01.934Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-07-24 23:06:01 2026-07-24T20:06:01.934Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "hotel" does not exist, skipping
+2026-07-24 23:06:01 Hibernate: drop table if exists promo_code cascade
+2026-07-24 23:06:01 2026-07-24T20:06:01.934Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-07-24 23:06:01 2026-07-24T20:06:01.935Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "promo_code" does not exist, skipping
+2026-07-24 23:06:01 Hibernate: drop table if exists review cascade
+2026-07-24 23:06:01 2026-07-24T20:06:01.935Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2026-07-24 23:06:01 2026-07-24T20:06:01.935Z  WARN 1 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "review" does not exist, skipping
+2026-07-24 23:06:01 Hibernate: create table app_user (active boolean not null, blacklisted boolean not null, city varchar(255), email varchar(255), id varchar(255) not null, name varchar(255), status varchar(255), primary key (id))
+2026-07-24 23:06:01 Hibernate: create table booking (discount_percent float(53), price float(53) not null, created_at timestamp(6) with time zone, id bigserial not null, hotel_id varchar(255), promo_code varchar(255), user_id varchar(255), primary key (id))
+2026-07-24 23:06:01 Hibernate: create table hotel (fully_booked boolean not null, operational boolean not null, rating float(53) not null, description varchar(1000), city varchar(255), id varchar(255) not null, primary key (id))
+2026-07-24 23:06:01 Hibernate: create table promo_code (discount float(53) not null, expired boolean not null, valid_until date, vip_only boolean not null, code varchar(255) not null, description varchar(255), primary key (code))
+2026-07-24 23:06:01 Hibernate: create table review (created_at date, rating integer not null, text varchar(2000), hotel_id varchar(255), id varchar(255) not null, user_id varchar(255), primary key (id))
+2026-07-24 23:06:01 2026-07-24T20:06:01.988Z  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-07-24 23:06:02 2026-07-24T20:06:02.452Z  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-07-24 23:06:03 2026-07-24T20:06:03.075Z  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2026-07-24 23:06:03 2026-07-24T20:06:03.093Z  INFO 1 --- [           main] c.hotelio.monolith.MonolithApplication   : Started MonolithApplication in 5.081 seconds (process running for 5.767)
+2026-07-24 23:06:03 ➡️  BookingService beans:
+2026-07-24 23:06:03     - bookingService: class com.hotelio.monolith.service.BookingService
+2026-07-24 23:06:10 2026-07-24T20:06:10.250Z  INFO 1 --- [nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-07-24 23:06:10 2026-07-24T20:06:10.251Z  INFO 1 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-07-24 23:06:10 2026-07-24T20:06:10.253Z  INFO 1 --- [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-07-24 23:08:34 Hibernate: select b1_0.id,b1_0.created_at,b1_0.discount_percent,b1_0.hotel_id,b1_0.price,b1_0.promo_code,b1_0.user_id from booking b1_0
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:02 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:02 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:02 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.city=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.city=? order by h1_0.rating desc
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 Hibernate: select b1_0.id,b1_0.created_at,b1_0.discount_percent,b1_0.hotel_id,b1_0.price,b1_0.promo_code,b1_0.user_id from booking b1_0
+2026-07-24 23:19:03 Hibernate: select b1_0.id,b1_0.created_at,b1_0.discount_percent,b1_0.hotel_id,b1_0.price,b1_0.promo_code,b1_0.user_id from booking b1_0 where b1_0.user_id=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.266Z  INFO 1 --- [io-8080-exec-10] c.h.monolith.service.BookingService      : Creating booking: userId=test-user-3, hotelId=test-hotel-1, promoCode=null
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.277Z  INFO 1 --- [io-8080-exec-10] c.h.monolith.service.BookingService      : Final price calculated: base=80.0, discount=0.0, final=80.0
+2026-07-24 23:19:03 Hibernate: insert into booking (created_at,discount_percent,hotel_id,price,promo_code,user_id) values (?,?,?,?,?,?)
+2026-07-24 23:19:03 2026-07-24T20:19:03.330Z  INFO 1 --- [nio-8080-exec-1] c.h.monolith.service.BookingService      : Creating booking: userId=test-user-2, hotelId=test-hotel-1, promoCode=TESTCODE1
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 Hibernate: select pc1_0.code,pc1_0.description,pc1_0.discount,pc1_0.expired,pc1_0.valid_until,pc1_0.vip_only from promo_code pc1_0 where pc1_0.code=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.340Z  INFO 1 --- [nio-8080-exec-1] c.h.monolith.service.BookingService      : Final price calculated: base=100.0, discount=10.0, final=90.0
+2026-07-24 23:19:03 Hibernate: insert into booking (created_at,discount_percent,hotel_id,price,promo_code,user_id) values (?,?,?,?,?,?)
+2026-07-24 23:19:03 2026-07-24T20:19:03.371Z  INFO 1 --- [nio-8080-exec-4] c.h.monolith.service.BookingService      : Creating booking: userId=test-user-0, hotelId=test-hotel-1, promoCode=null
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.373Z  WARN 1 --- [nio-8080-exec-4] c.h.monolith.service.BookingService      : User test-user-0 is inactive
+2026-07-24 23:19:03 2026-07-24T20:19:03.377Z ERROR 1 --- [nio-8080-exec-4] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: User is inactive] with root cause
+2026-07-24 23:19:03
+2026-07-24 23:19:03 java.lang.IllegalArgumentException: User is inactive
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.validateUser(BookingService.java:67) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.createBooking(BookingService.java:45) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.controller.BookingController.createBooking(BookingController.java:31) ~[!/:1.0.0]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+2026-07-24 23:19:03
+2026-07-24 23:19:03 2026-07-24T20:19:03.400Z  INFO 1 --- [nio-8080-exec-5] c.h.monolith.service.BookingService      : Creating booking: userId=test-user-2, hotelId=test-hotel-3, promoCode=null
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.403Z  WARN 1 --- [nio-8080-exec-5] c.h.monolith.service.BookingService      : Hotel test-hotel-3 is not operational
+2026-07-24 23:19:03 2026-07-24T20:19:03.404Z ERROR 1 --- [nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Hotel is not operational] with root cause
+2026-07-24 23:19:03
+2026-07-24 23:19:03 java.lang.IllegalArgumentException: Hotel is not operational
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.validateHotel(BookingService.java:78) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.createBooking(BookingService.java:46) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.controller.BookingController.createBooking(BookingController.java:31) ~[!/:1.0.0]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+2026-07-24 23:19:03
+2026-07-24 23:19:03 2026-07-24T20:19:03.427Z  INFO 1 --- [nio-8080-exec-6] c.h.monolith.service.BookingService      : Creating booking: userId=test-user-2, hotelId=test-hotel-2, promoCode=null
+2026-07-24 23:19:03 Hibernate: select au1_0.id,au1_0.active,au1_0.blacklisted,au1_0.city,au1_0.email,au1_0.name,au1_0.status from app_user au1_0 where au1_0.id=?
+2026-07-24 23:19:03 Hibernate: select h1_0.id,h1_0.city,h1_0.description,h1_0.fully_booked,h1_0.operational,h1_0.rating from hotel h1_0 where h1_0.id=?
+2026-07-24 23:19:03 Hibernate: select r1_0.id,r1_0.created_at,r1_0.hotel_id,r1_0.rating,r1_0.text,r1_0.user_id from review r1_0 where r1_0.hotel_id=?
+2026-07-24 23:19:03 2026-07-24T20:19:03.434Z  WARN 1 --- [nio-8080-exec-6] c.h.monolith.service.BookingService      : Hotel test-hotel-2 is not trusted
+2026-07-24 23:19:03 2026-07-24T20:19:03.435Z ERROR 1 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Hotel is not trusted based on reviews] with root cause
+2026-07-24 23:19:03
+2026-07-24 23:19:03 java.lang.IllegalArgumentException: Hotel is not trusted based on reviews
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.validateHotel(BookingService.java:82) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.service.BookingService.createBooking(BookingService.java:46) ~[!/:1.0.0]
+2026-07-24 23:19:03 at com.hotelio.monolith.controller.BookingController.createBooking(BookingController.java:31) ~[!/:1.0.0]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at java.base/java.lang.reflect.Method.invoke(Unknown Source) ~[na:na]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885) ~[spring-webmvc-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:206) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51) ~[tomcat-embed-websocket-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-6.1.6.jar!/:6.1.6]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:175) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:150) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1736) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.20.jar!/:na]
+2026-07-24 23:19:03 at java.base/java.lang.Thread.run(Unknown Source) ~[na:na]
+2026-07-24 23:19:03

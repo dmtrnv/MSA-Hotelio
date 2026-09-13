@@ -1,0 +1,14 @@
+PS C:\Users\renev> docker ps
+CONTAINER ID   IMAGE                             COMMAND                  CREATED              STATUS              PORTS                                        NAMES
+285f5fa45b39   task2-booking-service             "dotnet BookingServi…"   About a minute ago   Up About a minute   0.0.0.0:5555->5555/tcp                       task2-booking-service-1
+51259a33d121   task2-booking-history-service     "dotnet BookingHisto…"   About a minute ago   Up About a minute                                                task2-booking-history-service-1
+859c588f187c   provectuslabs/kafka-ui:latest     "/bin/sh -c 'java --…"   About a minute ago   Up About a minute   8080/tcp, 0.0.0.0:8090->8081/tcp             task2-kafka-ui-1
+6d40c5a20830   task2-monolith                    "java -jar app.jar"      About a minute ago   Up About a minute   0.0.0.0:8084->8080/tcp                       hotelio-monolith
+982afc61ff0b   postgres:15                       "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5433->5432/tcp                       booking-service-db
+96917c937ab5   postgres:15                       "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5434->5432/tcp                       booking-history-service-db
+2a99e0dfa293   confluentinc/cp-kafka:7.2.1       "/etc/confluent/dock…"   About a minute ago   Up About a minute   0.0.0.0:9092->9092/tcp                       task2-kafka-1
+8030ea1c4365   postgres:15                       "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:5432->5432/tcp                       hotelio-db
+d190ae0821c5   confluentinc/cp-zookeeper:7.2.1   "/etc/confluent/dock…"   About a minute ago   Up About a minute   2888/tcp, 0.0.0.0:2181->2181/tcp, 3888/tcp   task2-zookeeper-1
+ee2bde0f1a78   task3-apollo-gateway              "docker-entrypoint.s…"   4 minutes ago        Up 4 minutes        0.0.0.0:4000->4000/tcp                       task3-apollo-gateway-1
+f176bc7aec50   task3-booking-subgraph            "docker-entrypoint.s…"   43 hours ago         Up 4 minutes        0.0.0.0:4001->4001/tcp                       task3-booking-subgraph-1
+d1d894c62ccd   task3-hotel-subgraph              "docker-entrypoint.s…"   43 hours ago         Up 4 minutes        0.0.0.0:4002->4002/tcp                       task3-hotel-subgraph-1

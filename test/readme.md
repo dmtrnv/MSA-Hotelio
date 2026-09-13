@@ -49,13 +49,36 @@
 ```bash
 cd test/
 docker build -t hotelio-tester .
+```
+bash
+```bash
 docker run --rm \                                                                                                                                                                   ok | 4s | 01:49:56
   -e DB_HOST=host.docker.internal \
   -e DB_PORT=5432 \
   -e DB_NAME=hotelio \
   -e DB_USER=hotelio \
-  -e DB_PASSWORD=hotelio \
+  -e DB_PASSWORD=hotelio \                                                                                                                                                        ok | 4s | 01:49:56
+  -e MS_DB_HOST=host.docker.internal \
+  -e MS_DB_PORT=5432 \
+  -e MS_DB_NAME=booking \
+  -e MS_DB_USER=booking \
+  -e MS_DB_PASSWORD=booking \
   -e API_URL=http://host.docker.internal:8084 \
   hotelio-tester
 ```
-
+powershell
+```bash
+docker run --rm `
+  -e "DB_HOST=host.docker.internal" `
+  -e "DB_PORT=5432" `
+  -e "DB_NAME=hotelio" `
+  -e "DB_USER=hotelio" `
+  -e "DB_PASSWORD=hotelio" `
+  -e "MS_DB_HOST=host.docker.internal" `
+  -e "MS_DB_PORT=5433" `
+  -e "MS_DB_NAME=booking" `
+  -e "MS_DB_USER=booking" `
+  -e "MS_DB_PASSWORD=booking" `
+  -e "API_URL=http://host.docker.internal:8084" `
+  hotelio-tester
+```

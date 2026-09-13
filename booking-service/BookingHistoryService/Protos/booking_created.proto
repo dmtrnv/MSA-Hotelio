@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option csharp_namespace = "Contracts";
+
+message BookingCreated {
+  string booking_id = 1;
+  string hotel_id = 2;
+  string user_id = 3;
+  string created_at = 4;
+}
