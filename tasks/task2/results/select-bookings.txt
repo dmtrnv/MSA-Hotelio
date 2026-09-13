@@ -1,0 +1,30 @@
+PS C:\Users\renev> psql -h localhost -p 5432 -d hotelio -U hotelio
+Password for user hotelio:
+
+psql (16.9, server 15.18 (Debian 15.18-1.pgdg13+1))
+Type "help" for help.
+
+hotelio=# select * from booking order by user_id;
+ discount_percent | price |          created_at           | id |   hotel_id   | promo_code |   user_id
+------------------+-------+-------------------------------+----+--------------+------------+-------------
+               10 |    90 | 2026-09-08 19:36:37.904026+00 |  1 | test-hotel-1 | TESTCODE1  | test-user-2
+                0 |    80 | 2026-09-08 19:36:37.904026+00 |  2 | test-hotel-1 |            | test-user-3
+(2 rows)
+
+
+hotelio=# \q
+PS C:\Users\renev> psql -h localhost -p 5433 -d booking -U booking
+Password for user booking:
+
+psql (16.9, server 15.18 (Debian 15.18-1.pgdg13+1))
+Type "help" for help.
+
+booking=# select * from bookings order by user_id;
+ id |   user_id   |   hotel_id   | promo_code | discount_percent |          created_at           | price
+----+-------------+--------------+------------+------------------+-------------------------------+-------
+ 38 | test-user-2 | test-hotel-1 | TESTCODE1  |               10 | 2026-09-08 19:36:39.190825+00 |    90
+ 37 | test-user-3 | test-hotel-1 |            |                0 | 2026-09-08 19:36:39.013052+00 |    80
+(2 rows)
+
+
+booking=# \q
