@@ -1,0 +1,43 @@
+replicaCount: 3
+
+image:
+  name: booking-service
+  tag: latest
+  pullPolicy: Never        # локальный образ в minikube
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+ENABLE_FEATURE_X: false    # фича выключена в prod
+
+env: [] # TODO
+#  - name: APP_ENV
+#    value: prod
+#  - name: LOG_LEVEL
+#    value: info
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+livenessProbe:
+  path: /ping
+  initialDelaySeconds: 10
+  periodSeconds: 15
+  timeoutSeconds: 3
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  path: /ping
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+  successThreshold: 1

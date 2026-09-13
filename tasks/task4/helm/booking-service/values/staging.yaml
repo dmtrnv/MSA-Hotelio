@@ -3,27 +3,27 @@ replicaCount: 1
 image:
   name: booking-service
   tag: latest
-  pullPolicy: Never
+  pullPolicy: Never        # локальный образ в minikube
 
 service:
   type: ClusterIP
   port: 80
   targetPort: 8080
 
-# Фича-флаг: попадает в контейнер как env ENABLE_FEATURE_X
-ENABLE_FEATURE_X: false
+ENABLE_FEATURE_X: true     # фича включена в staging
 
-# Дополнительные переменные окружения
-env: []
+env: [] # TODO
+#  - name: APP_ENV
+#    value: prod
 #  - name: LOG_LEVEL
 #    value: info
 
 resources:
   requests:
-    cpu: 100m
+    cpu: 50m
     memory: 64Mi
   limits:
-    cpu: 500m
+    cpu: 250m
     memory: 128Mi
 
 livenessProbe:
