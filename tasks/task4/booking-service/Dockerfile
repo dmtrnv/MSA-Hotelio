@@ -1,25 +1,23 @@
-# Используем официальный минимальный образ Go
-FROM golang:1.21-alpine
-
-# TODO: Добавить необходимые пакеты (например, curl)
-# Ожидаемый код:
-RUN apk add --no-cache curl
-
-# Устанавливаем рабочую директорию
+﻿FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+USER $APP_UID
 WORKDIR /app
+EXPOSE 5555
+EXPOSE 8080
 
-# Копируем Go-файл и скрипт проверки DNS
-COPY main.go .
-#COPY check-dns.sh .
-#
-## TODO: Сделать скрипт исполняемым
-## Ожидаемый код:
-#RUN chmod +x check-dns.sh
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["BookingService.csproj", "."]
+COPY ["Protos/", "Protos/"]
+RUN dotnet restore "BookingService.csproj"
+COPY . .
+RUN dotnet build "BookingService.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# TODO: Собрать бинарник из main.go
-# Ожидаемый код:
-RUN go build -o booking-service main.go
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "BookingService.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# TODO: Задать команду запуска
-# Ожидаемый код:
-CMD ["./booking-service"]
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "BookingService.dll"]

@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   name: booking-service
-  tag: latest
+  tag: 22
   pullPolicy: Never
 
 service:
@@ -12,16 +12,18 @@ service:
   grpcPort: 5555
   grpcTargetPort: 5555
 
-ENABLE_FEATURE_X: false
+ENABLE_FEATURE_X: true
 
-env: []
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
 
 resources:
   requests:
-    cpu: 100m
+    cpu: 50m
     memory: 64Mi
   limits:
-    cpu: 500m
+    cpu: 250m
     memory: 128Mi
 
 livenessProbe:

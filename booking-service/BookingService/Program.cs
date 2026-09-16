@@ -29,6 +29,15 @@ var app = builder.Build();
 app.MapGrpcService<BookingService.Services.Grpc.BookingGrpcService>();
 app.MapGrpcReflectionService();
 
+#region For task 4
+app.MapGet("/ping", () => "pong"); 
+var enableFeatureX = Environment.GetEnvironmentVariable("ENABLE_FEATURE_X") == "true";
+if (enableFeatureX)
+{
+    app.MapGet("/feature", () => "Feature X is enabled!");
+}
+#endregion
+
 if (args.Contains("--migrate", StringComparer.OrdinalIgnoreCase))
 {
     using var scope = app.Services.CreateScope();

@@ -40,7 +40,7 @@ services:
       HotelioClient__BaseAddress: "http://monolith:8080/api/"
       Kafka__BootstrapServers: "kafka:9092"
       Kafka__Topic__Name: "orders.created"
-      ASPNETCORE_HTTP_PORTS: 5555
+      Kestrel__Endpoints__Grpc__Url: "http://0.0.0.0:5555"
     ports:
       - "5555:5555"
     depends_on:

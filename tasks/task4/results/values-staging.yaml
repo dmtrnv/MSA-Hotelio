@@ -2,21 +2,21 @@ replicaCount: 1
 
 image:
   name: booking-service
-  tag: latest
-  pullPolicy: Never        # локальный образ в minikube
+  tag: 22
+  pullPolicy: Never
 
 service:
   type: ClusterIP
-  port: 80
-  targetPort: 8080
+  httpPort: 80
+  httpTargetPort: 8080
+  grpcPort: 5555
+  grpcTargetPort: 5555
 
-ENABLE_FEATURE_X: true     # фича включена в staging
+ENABLE_FEATURE_X: true
 
-env: [] # TODO
-#  - name: APP_ENV
-#    value: prod
-#  - name: LOG_LEVEL
-#    value: info
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
 
 resources:
   requests:

@@ -33,47 +33,60 @@ public sealed class BookingOutboxBackgroundService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        await EnsureTopicExists(_bootstrapServers);
+        try
+        {
+            await EnsureTopicExists(_bootstrapServers);
+        }
+        catch
+        {
+        }
         
         while (!cancellationToken.IsCancellationRequested)
         {
-            using var scope = _scopeFactory.CreateScope();
-            
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            var bookingsToSend = await dbContext.BookingOutbox
-                .Include(x => x.Booking)
-                .Where(x => !x.IsSent)
-                .ToListAsync(cancellationToken: cancellationToken);
-            foreach (var booking in bookingsToSend)
+            try
             {
-                var bookingEvent = new BookingCreated
+                using var scope = _scopeFactory.CreateScope();
+
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var bookingsToSend = await dbContext.BookingOutbox
+                    .Include(x => x.Booking)
+                    .Where(x => !x.IsSent)
+                    .ToListAsync(cancellationToken: cancellationToken);
+                foreach (var booking in bookingsToSend)
                 {
-                    BookingId = booking.BookingId.ToString(),
-                    HotelId = booking.Booking!.HotelId,
-                    UserId = booking.Booking.UserId,
-                    CreatedAt = booking.Booking.CreatedAt
-                        .ToUniversalTime()
-                        .ToString("yyyy-MM-dd'T'HH:mm:ss.ffffff'Z'", CultureInfo.InvariantCulture)
-                };
-                var produceResult = await _producer.ProduceAsync(
-                    _topicName,
-                    new Message<string, byte[]>
+                    var bookingEvent = new BookingCreated
                     {
-                        Key = bookingEvent.BookingId,
-                        Value = bookingEvent.ToByteArray()
-                    },
-                    cancellationToken);
-                if (produceResult.Status == PersistenceStatus.Persisted)
+                        BookingId = booking.BookingId.ToString(),
+                        HotelId = booking.Booking!.HotelId,
+                        UserId = booking.Booking.UserId,
+                        CreatedAt = booking.Booking.CreatedAt
+                            .ToUniversalTime()
+                            .ToString("yyyy-MM-dd'T'HH:mm:ss.ffffff'Z'", CultureInfo.InvariantCulture)
+                    };
+                    var produceResult = await _producer.ProduceAsync(
+                        _topicName,
+                        new Message<string, byte[]>
+                        {
+                            Key = bookingEvent.BookingId,
+                            Value = bookingEvent.ToByteArray()
+                        },
+                        cancellationToken);
+                    if (produceResult.Status == PersistenceStatus.Persisted)
+                    {
+                        booking.IsSent = true;
+                        dbContext.Update(booking);
+                    }
+                }
+
+                if (dbContext.ChangeTracker.HasChanges())
                 {
-                    booking.IsSent = true;
-                    dbContext.Update(booking);
+                    await dbContext.SaveChangesAsync(cancellationToken);
                 }
             }
-            if (dbContext.ChangeTracker.HasChanges())
+            catch
             {
-                await dbContext.SaveChangesAsync(cancellationToken);
             }
-            
+
             await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
         }
     }

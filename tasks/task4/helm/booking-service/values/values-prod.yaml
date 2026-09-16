@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 3
 
 image:
   name: booking-service
@@ -14,28 +14,30 @@ service:
 
 ENABLE_FEATURE_X: false
 
-env: []
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Production"
 
 resources:
   requests:
-    cpu: 100m
-    memory: 64Mi
+    cpu: 200m
+    memory: 128Mi
   limits:
     cpu: 500m
-    memory: 128Mi
+    memory: 256Mi
 
 livenessProbe:
   path: /ping
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  timeoutSeconds: 2
+  initialDelaySeconds: 10
+  periodSeconds: 15
+  timeoutSeconds: 3
   failureThreshold: 3
   successThreshold: 1
 
 readinessProbe:
   path: /ping
-  initialDelaySeconds: 3
-  periodSeconds: 5
-  timeoutSeconds: 2
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 3
   failureThreshold: 3
   successThreshold: 1
