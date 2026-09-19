@@ -29,13 +29,32 @@ var app = builder.Build();
 app.MapGrpcService<BookingService.Services.Grpc.BookingGrpcService>();
 app.MapGrpcReflectionService();
 
-#region For task 4
-app.MapGet("/ping", () => "pong"); 
-var enableFeatureX = Environment.GetEnvironmentVariable("ENABLE_FEATURE_X") == "true";
-if (enableFeatureX)
+#region For task 4 and task 5
+app.MapGet("/ping", () =>
 {
-    app.MapGet("/feature", () => "Feature X is enabled!");
-}
+    var pingVersion = Environment.GetEnvironmentVariable("PING_VERSION");
+    return string.IsNullOrWhiteSpace(pingVersion)
+        ? "pong"
+        : $"pong {pingVersion}";
+}); 
+var isFeatureEnabledByVariable = Environment.GetEnvironmentVariable("ENABLE_FEATURE_X") == "true";
+app.MapGet("/feature", (HttpRequest request) =>
+{
+    var pingVersion = Environment.GetEnvironmentVariable("PING_VERSION");
+    if (pingVersion is null
+        && isFeatureEnabledByVariable)
+    {
+        Results.Ok("Feature X is enabled!");
+    }
+    else
+    {
+        var isFeatureEnabledByHeader = request.Headers["X-Feature-Enabled"] == "true";
+        return !isFeatureEnabledByVariable && !isFeatureEnabledByHeader
+            ? Results.NotFound()
+            : Results.Ok("Feature X is enabled!");
+    }
+    return Results.NotFound();
+});
 #endregion
 
 if (args.Contains("--migrate", StringComparer.OrdinalIgnoreCase))

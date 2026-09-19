@@ -1,0 +1,73 @@
+stages:
+  - build
+  - test
+  - deploy
+  - tag
+
+variables:
+  RELEASE_NAME: booking-service
+  CHART_PATH: ./helm/booking-service
+  VALUES_PATH: ./helm/booking-service/values/values-v1.yaml
+  DOCKERFILE_PATH: ./booking-service/Dockerfile
+  DOCKERFILE_CONTEXT_PATH: ../../booking-service/BookingService
+  TEST_HOST_PORT: "18080"
+
+before_script:
+  - export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+  - export IMAGE_TAG="$(yq -r '.image.tag' "${VALUES_PATH}")"
+  - export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+  - echo "IMAGE_NAME=${IMAGE_NAME}"
+  - echo "IMAGE_TAG=${IMAGE_TAG}"
+  - echo "APP_PORT=${APP_PORT}"
+
+build:
+  stage: build
+  script:
+    - echo "Building ${IMAGE_NAME}:${IMAGE_TAG} ..."
+    - docker build -t "${IMAGE_NAME}:${IMAGE_TAG}" -f "${DOCKERFILE_PATH}" "${DOCKERFILE_CONTEXT_PATH}"
+    - docker image inspect "${IMAGE_NAME}:${IMAGE_TAG}"
+    - echo "Image built."
+
+test:
+  stage: test
+  script:
+    - docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+    - docker run -d --name "${IMAGE_NAME}-test" -p "${TEST_HOST_PORT}:${APP_PORT}" "${IMAGE_NAME}:${IMAGE_TAG}"
+    - |
+      ok=0
+      for i in $(seq 1 15); do
+        if [ "$(curl -s "http://localhost:${TEST_HOST_PORT}/ping")" = "pong" ]; then
+          ok=1
+          echo "✅ /ping -> pong"
+          break
+        fi
+        sleep 1
+      done
+      if [ "$ok" != "1" ]; then
+        echo "❌ Service did not answer /ping"
+        docker logs "${IMAGE_NAME}-test" || true
+      fi
+      [ "$ok" = "1" ]
+    - docker rm -f "${IMAGE_NAME}-test"
+  after_script:
+    - docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Loading image into minikube..."
+    - minikube image load "${IMAGE_NAME}:${IMAGE_TAG}"
+    - >
+      helm upgrade --install "${RELEASE_NAME}" "${CHART_PATH}"
+      --namespace default
+      -f "${VALUES_PATH}"
+      --wait --timeout 120s
+    - kubectl rollout status deployment/"${RELEASE_NAME}" --timeout=120s
+
+tag:
+  stage: tag
+  script:
+    - TAG="v$(date +%Y%m%d-%H%M%S)"
+    - git tag -a "${TAG}" -m "CI release ${TAG} (pipeline ${CI_PIPELINE_ID:-local})"
+    - echo "Created tag ${TAG}"
+    - git tag -l "v*"
