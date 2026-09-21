@@ -9,6 +9,19 @@ spec:
   gateways:
     - booking-gateway
   http:
+    - name: v1-fallback
+      match:
+        - headers:
+            x-istio-fallback:
+              exact: v2
+      route:
+        - destination:
+            host: booking-service
+            subset: v2
+      retries:
+        attempts: 3
+        perTryTimeout: 1s
+        retryOn: 5xx,reset,connect-failure
     - name: feature-flag
       match:
         - headers:

@@ -32,3 +32,88 @@ spec:
                   handle:headers():remove("x-istio-feature")
                 end
               end
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: booking-v1-fallback
+  namespace: istio-system
+spec:
+  workloadSelector:
+    labels:
+      istio: ingressgateway
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: GATEWAY
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+              subFilter:
+                name: envoy.filters.http.router
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.lua
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.lua.v3.Lua
+            inlineCode: |
+              local V1_CLUSTER = "outbound|80|v1|booking-service.default.svc.cluster.local"
+              local PROBE_INTERVAL = 1 
+              local DOWN_TTL = 5 
+              local PROBE_TIMEOUT_MS = 200
+              
+              local v1_down_until = 0
+              local last_probe = 0
+
+              function envoy_on_request(handle)
+                local h = handle:headers()
+                h:remove("x-istio-fallback")
+
+                if h:get("x-istio-feature") == "v2" then
+                  return
+                end
+
+                local now = os.time()
+
+                if now < v1_down_until then
+                  h:replace("x-istio-fallback", "v2")
+                  return
+                end
+
+                if now < last_probe + PROBE_INTERVAL then
+                  return
+                end
+                last_probe = now
+
+                local status = nil
+                local ok, resp = pcall(function()
+                  return handle:httpCall(
+                    V1_CLUSTER,
+                    {
+                      [":method"] = "GET",
+                      [":path"] = "/ping",
+                      [":authority"] = "booking-service.default.svc.cluster.local",
+                    },
+                    "",
+                    PROBE_TIMEOUT_MS)
+                end)
+
+                if ok and resp ~= nil then
+                  status = tonumber(resp[":status"])
+                  if status ~= nil and status >= 500 then
+                    v1_down_until = now + DOWN_TTL
+                    h:replace("x-istio-fallback", "v2")
+                  end
+                end
+              end
+
+              function envoy_on_response(handle)
+                local status = tonumber(handle:headers():get(":status")) or 0
+                if status >= 500 then
+                  v1_down_until = os.time() + DOWN_TTL
+                end
+              end
