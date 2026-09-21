@@ -1,11 +1,16 @@
 replicaCount: 1
 
+appLabel: booking-service
+version: v1
+
 image:
   name: booking-service
   tag: latest
   pullPolicy: Never
 
 service:
+  create: true
+  name: booking-service
   type: ClusterIP
   httpPort: 80
   httpTargetPort: 8080
@@ -13,6 +18,7 @@ service:
   grpcTargetPort: 5555
 
 ENABLE_FEATURE_X: false
+PING_VERSION: ""
 
 env: []
 

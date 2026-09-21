@@ -44,16 +44,12 @@ app.MapGet("/feature", (HttpRequest request) =>
     if (pingVersion is null
         && isFeatureEnabledByVariable)
     {
-        Results.Ok("Feature X is enabled!");
+        return Results.Ok("Feature X is enabled!");
     }
-    else
-    {
-        var isFeatureEnabledByHeader = request.Headers["X-Feature-Enabled"] == "true";
-        return !isFeatureEnabledByVariable && !isFeatureEnabledByHeader
-            ? Results.NotFound()
-            : Results.Ok("Feature X is enabled!");
-    }
-    return Results.NotFound();
+    var isFeatureEnabledByHeader = request.Headers["X-Feature-Enabled"] == "true";
+    return !isFeatureEnabledByVariable && !isFeatureEnabledByHeader
+        ? Results.NotFound()
+        : Results.Ok("Feature X is enabled!");
 });
 #endregion
 

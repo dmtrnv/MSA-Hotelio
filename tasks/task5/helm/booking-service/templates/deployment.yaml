@@ -3,16 +3,19 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Values.appLabel }}
+    version: {{ .Values.version }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}
+      app: {{ .Values.appLabel }}
+      version: {{ .Values.version }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}
+        app: {{ .Values.appLabel }}
+        version: {{ .Values.version }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
@@ -27,7 +30,7 @@ spec:
             - name: ENABLE_FEATURE_X
               value: {{ .Values.ENABLE_FEATURE_X | quote }}
             - name: PING_VERSION
-              value: {{ .Values.PING_VERSION | quote }}
+              value: {{ .Values.PING_VERSION | default "" | quote }}
             - name: Kestrel__Endpoints__Grpc__Url
               value: "http://0.0.0.0:{{ .Values.service.grpcTargetPort }}"
             - name: Kestrel__Endpoints__Http__Url

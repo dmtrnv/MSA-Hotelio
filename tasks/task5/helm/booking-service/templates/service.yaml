@@ -1,9 +1,10 @@
+{{- if .Values.service.create }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Values.service.name }}
   labels:
-    app: {{ .Release.Name }}
+    app: {{ .Values.appLabel }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -16,4 +17,5 @@ spec:
       port: {{ .Values.service.grpcPort }}
       targetPort: {{ .Values.service.grpcTargetPort }}
   selector:
-    app: {{ .Release.Name }}
+    app: {{ .Values.appLabel }}
+{{- end }}
