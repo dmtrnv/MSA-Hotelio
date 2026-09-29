@@ -1,0 +1,28 @@
+@startuml
+
+left to right direction
+
+actor Пользователь
+
+rectangle "API Gateway / BFF" as gateway
+
+rectangle "Hotel Service" as hotel
+database "Hotel DB" as hotelDB
+
+rectangle "Hotelio Monolith" as monolith
+database "Monolith DB" as monolithDB
+
+Пользователь --> gateway
+
+gateway --> hotel : 10% -> 50% -> 100%
+gateway --> monolith : 90% -> 50% -> 0%
+
+hotel --> hotelDB : Чтение/запись данных
+monolith --> monolithDB : Чтение/запись данных
+
+note right of gateway
+Переключение трафика происходит постепенно.
+Откат означает перенаправление трафика обратно на монолит.
+end note
+
+@enduml

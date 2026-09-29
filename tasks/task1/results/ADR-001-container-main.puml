@@ -1,0 +1,27 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Пользователь")
+
+System_Boundary(hotelio, "Hotelio") {
+    Container(gateway, "API Gateway", "Gateway / Ingress", "Управление идентификацией и доступом, маршрутизация, rate limiting, TLS termination, correlation ID")
+    Container(bff, "GraphQL BFF", "NodeJS", "Схема и композиция данных")
+    Container(monolith, "Hotelio Monolith", "Spring Boot", "Бизнес логика букинга, проверка промокодов, информация о пользователях, отзывах и рейтингах")
+    Container(hotel, "Hotel Service", "Spring Boot", "Информация об отелях")
+
+    ContainerDb(monolithDb, "Monolith DB", "PostgreSQL")
+    ContainerDb(hotelDb, "Hotel DB", "PostgreSQL")
+}
+
+Rel(user, gateway, "Использует", "HTTPS")
+Rel(gateway, bff, "Направляет запрос", "HTTP")
+Rel(bff, hotel, "Запрашивает информацию об отелях")
+Rel(bff, monolith, "Вызывает логику букинга и запрашивает всю информацию, кроме информации об отелях", "HTTP")
+Rel(monolith, hotel, "Запрашивает информацию об отелях", "HTTP")
+
+Rel(monolith, monolithDb, "Запись и получение данных", "SQL")
+Rel(hotel, hotelDb, "Запись и получение данных", "SQL")
+
+@enduml

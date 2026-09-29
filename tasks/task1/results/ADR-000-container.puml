@@ -1,0 +1,45 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Пользователь")
+
+System_Boundary(hotelio, "Hotelio") {
+    Container(mesh, "Service Mesh", "Istio", "mTLS, retries, circuit breaking, canary")
+    Container(observability, "Observability", "OTel, Prometheus, Grafana, Loki, Tempo", "Метрики, логи, трейсы, алерты")
+    Container(gateway, "API Gateway", "Gateway / Ingress", "Управление идентификацией и доступом, маршрутизация, rate limiting, TLS termination, correlation ID")
+    Container(bff, "GraphQL BFF", "NodeJS", "Схема и композиция данных")
+    Container(booking, "Booking Service", "Spring Boot", "Бизнес логика букинга")
+    Container(hotel, "Hotel Service", "Spring Boot", "Информация об отелях")
+    Container(userSvc, "User Service", "Spring Boot", "Информация о пользователях")
+    Container(review, "Review Service", "Spring Boot", "Информация об отзывах и рейтингах")
+    Container(promo, "Promo Service", "Spring Boot", "Проверка промокодов")
+
+    ContainerDb(bookingDb, "Booking DB", "PostgreSQL")
+    ContainerDb(hotelDb, "Hotel DB", "PostgreSQL")
+    ContainerDb(userDb, "User DB", "PostgreSQL")
+    ContainerDb(reviewDb, "Review DB", "PostgreSQL")
+    ContainerDb(promoDb, "Promo DB", "PostgreSQL")
+}
+
+Rel(user, gateway, "Использует", "HTTPS")
+Rel(gateway, bff, "Направляет запрос", "HTTP")
+Rel(bff, booking, "Вызывает логику букинга", "HTTP")
+Rel(bff, hotel, "Запрашивает информацию об отелях", "HTTP")
+Rel(bff, userSvc, "Запрашивает информацию о пользователях", "HTTP")
+Rel(bff, review, "Запрашивает информацию об отзывах и рейтингах", "HTTP")
+Rel(bff, promo, "Запрашивает информацию о промокодах", "HTTP")
+
+Rel(booking, hotel, "Запрашивает информацию об отелях", "HTTP")
+Rel(booking, userSvc, "Запрашивает информацию о пользователях", "HTTP")
+Rel(booking, review, "Запрашивает информацию об отзывах и рейтингах", "HTTP")
+Rel(booking, promo, "Запрашивает информацию о промокодах", "HTTP")
+
+Rel(booking, bookingDb, "Запись и получение данных", "SQL")
+Rel(hotel, hotelDb, "Запись и получение данных", "SQL")
+Rel(userSvc, userDb, "Запись и получение данных", "SQL")
+Rel(review, reviewDb, "Запись и получение данных", "SQL")
+Rel(promo, promoDb, "Запись и получение данных", "SQL")
+
+@enduml
