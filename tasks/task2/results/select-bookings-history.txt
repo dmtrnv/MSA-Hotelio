@@ -1,0 +1,15 @@
+PS C:\Users\renev> psql -h localhost -p 5434 -d booking-history -U booking-history
+Password for user booking-history:
+
+psql (16.9, server 15.18 (Debian 15.18-1.pgdg13+1))
+Type "help" for help.
+
+booking-history=# select * from booking_history order by user_id;
+ booking_id |   hotel_id   |   user_id   |          created_at
+------------+--------------+-------------+-------------------------------
+ 38         | test-hotel-1 | test-user-2 | 2026-09-08 19:36:39.190825+00
+ 37         | test-hotel-1 | test-user-3 | 2026-09-08 19:36:39.013052+00
+(2 rows)
+
+
+booking-history=# \q

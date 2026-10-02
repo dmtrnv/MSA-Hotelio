@@ -1,0 +1,65 @@
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task4$ docker image ls
+                                                                                                                                    i Info →   U  In Use
+IMAGE                                                      ID             DISK USAGE   CONTENT SIZE   EXTRA
+alpine/bombardier:latest                                   575b582ecc99       14.9MB             0B
+booking-service:11                                         21a97462ae71        347MB             0B
+booking-service:22                                         36ec66653619        347MB             0B
+booking-service:25                                         1a54bc9b5f40        297MB             0B
+booking-service:532                                        1a54bc9b5f40        297MB             0B
+booking-service:latest                                     21a97462ae71        347MB             0B
+confluentinc/cp-kafka:7.2.1                                d893473a6510        782MB             0B    U
+confluentinc/cp-kafka:latest                               5b4c63590c11        802MB             0B    U
+confluentinc/cp-zookeeper:7.2.1                            3f28db6a433d        782MB             0B
+confluentinc/cp-zookeeper:latest                           7b427b7d5bae        802MB             0B    U
+container-registry.oracle.com/database/express:21.3.0-xe   8da8cedb7fbf       11.4GB             0B    U
+container-registry.oracle.com/database/free:latest         e1ff84cf03ed       9.45GB             0B    U
+gcr.io/k8s-minikube/kicbase:v0.0.51                        2c31ef2958e5       1.34GB             0B    U
+golang:1.21-alpine                                         c2321c7cf721        222MB             0B
+gotenberg/gotenberg:8                                      80192468d53c       1.68GB             0B
+grafana/grafana-oss:latest                                 761b48cb57a0        485MB             0B    U
+grafana/grafana:7.3.1                                      900b03b57e41        186MB             0B
+hotelio-tester:latest                                      6044ae3acf0b       91.9MB             0B
+mcr.microsoft.com/dotnet/aspnet:10.0                       bb126d1fb898        230MB             0B
+mcr.microsoft.com/dotnet/aspnet:6.0                        83da8c6ae8f4        208MB             0B
+mcr.microsoft.com/dotnet/core/aspnet:3.1                   454a55eab920        208MB             0B
+mcr.microsoft.com/dotnet/core/sdk:3.1                      1e8401d05dea        714MB             0B
+mcr.microsoft.com/dotnet/sdk:10.0                          fa92ac5d68e8        875MB             0B
+mcr.microsoft.com/dotnet/sdk:6.0                           9ab77b261a62        740MB             0B
+plantuml/plantuml-server:tomcat                            ed995ea275a5        642MB             0B    U
+postgres:15                                                9a18aed4ecdd        445MB             0B
+postgres:16.0                                              fbd1be2cbb1f        417MB             0B    U
+prom/node-exporter:latest                                  71dc9668b154       23.3MB             0B    U
+prom/prometheus:latest                                     899b369f202e        290MB             0B    U
+prom/prometheus:v2.22.0                                    7adf5a25557b        168MB             0B
+provectuslabs/kafka-ui:latest                              99307ab28a49        291MB             0B
+task1-monolith:latest                                      6858c3d67019        327MB             0B
+task2-booking-history-service-migrate:latest               244f5e270107        347MB             0B
+task2-booking-history-service:latest                       a0738fe4bfc7        347MB             0B
+task2-booking-service-migrate:latest                       0c5cba25bacb        347MB             0B
+task2-booking-service:latest                               9f91ca53ba86        347MB             0B
+task2-monolith:latest                                      e0844de5373a        326MB             0B
+task3-apollo-gateway:latest                                f049cf315bbe       1.25GB             0B    U
+task3-booking-subgraph:latest                              87db489ec974       1.16GB             0B    U
+task3-hotel-subgraph:latest                                3f2ac0b2716f       1.15GB             0B    U
+webapplication2-abonent-source:latest                      4ffa3551677a        231MB             0B    U
+webapplication2-adapter-facade:latest                      188bb0e3dfd6        233MB             0B    U
+webapplication2-order-source:latest                        3e7a55e301b5        231MB             0B    U
+yandex/yandex-tank:latest                                  ede783eea2d1        656MB             0B
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task4$ minikube image list
+registry.k8s.io/pause:3.10.2
+registry.k8s.io/kube-scheduler:v1.37.0
+registry.k8s.io/kube-proxy:v1.37.0
+registry.k8s.io/kube-controller-manager:v1.37.0
+registry.k8s.io/kube-apiserver:v1.37.0
+registry.k8s.io/etcd:3.7.0-0
+registry.k8s.io/coredns/coredns:v1.14.6
+gcr.io/k8s-minikube/storage-provisioner:v5
+docker.io/library/busybox:latest
+docker.io/library/booking-service:latest
+docker.io/library/booking-service:532
+docker.io/library/booking-service:25
+docker.io/library/booking-service:22
+docker.io/library/booking-service:11
+docker.io/kindest/kindnetd:v20260820-69b56db7
+docker.io/kindest/kindnetd:v20250512-df8de77b
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task4$

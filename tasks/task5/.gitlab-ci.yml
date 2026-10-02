@@ -1,0 +1,100 @@
+stages:
+  - build
+  - test
+  - deploy
+  - istio
+  - tag
+
+variables:
+  RELEASE_NAME_V1: booking-service-v1
+  RELEASE_NAME_V2: booking-service-v2
+  CHART_PATH: ./helm/booking-service
+  VALUES_PATH: ./helm/booking-service/values/values-v1.yaml
+  VALUES_PATH_V2: ./helm/booking-service/values/values-v2.yaml
+  DOCKERFILE_PATH: ./booking-service/Dockerfile
+  DOCKERFILE_CONTEXT_PATH: ../../booking-service/BookingService
+  TEST_HOST_PORT: "18080"
+
+before_script:
+  - export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+  - export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+  - export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+  - export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+  - echo "IMAGE_NAME=${IMAGE_NAME}"
+  - echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+  - echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+  - echo "APP_PORT=${APP_PORT}"
+
+build:
+  stage: build
+  script:
+    - echo "Building ${IMAGE_NAME}:${IMAGE_TAG_V1} ..."
+    - docker build -t "${IMAGE_NAME}:${IMAGE_TAG_V1}" -f "${DOCKERFILE_PATH}" "${DOCKERFILE_CONTEXT_PATH}"
+    - docker tag "${IMAGE_NAME}:${IMAGE_TAG_V1}" "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+    - docker image inspect "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+    - docker image inspect "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+    - echo "Images built (one build, tags ${IMAGE_TAG_V1} and ${IMAGE_TAG_V2})."
+
+test:
+  stage: test
+  script:
+    - docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+    - docker run -d --name "${IMAGE_NAME}-test" -p "${TEST_HOST_PORT}:${APP_PORT}" "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+    - |
+      ok=0
+      for i in $(seq 1 15); do
+        if [ "$(curl -s "http://localhost:${TEST_HOST_PORT}/ping")" = "pong" ]; then
+          ok=1
+          echo "✅ /ping -> pong"
+          break
+        fi
+        sleep 1
+      done
+      if [ "$ok" != "1" ]; then
+        echo "❌ Service did not answer /ping"
+        docker logs "${IMAGE_NAME}-test" || true
+      fi
+      [ "$ok" = "1" ]
+    - docker rm -f "${IMAGE_NAME}-test"
+  after_script:
+    - docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Loading images into minikube..."
+    - minikube image load "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+    - minikube image load "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+    - >
+      helm upgrade --install "${RELEASE_NAME_V1}" "${CHART_PATH}"
+      --namespace default
+      -f "${VALUES_PATH}"
+      --wait --timeout 120s
+    - >
+      helm upgrade --install "${RELEASE_NAME_V2}" "${CHART_PATH}"
+      --namespace default
+      -f "${VALUES_PATH_V2}"
+      --wait --timeout 120s
+    - kubectl rollout status deployment/"${RELEASE_NAME_V1}" --timeout=120s
+    - kubectl rollout status deployment/"${RELEASE_NAME_V2}" --timeout=120s
+
+istio:
+  stage: istio
+  script:
+    - |
+      if kubectl get crd virtualservices.networking.istio.io >/dev/null 2>&1; then
+        kubectl apply -f istio/gateway.yaml
+        kubectl apply -f istio/destination-rule.yaml
+        kubectl apply -f istio/virtual-service.yaml
+        kubectl apply -f istio/envoy-filter.yaml
+      else
+        echo "⚠️ Istio CRDs не найдены в кластере — пропускаю применение Istio-манифестов"
+      fi
+
+tag:
+  stage: tag
+  script:
+    - TAG="v$(date +%Y%m%d-%H%M%S)"
+    - git tag -a "${TAG}" -m "CI release ${TAG} (pipeline ${CI_PIPELINE_ID:-local})"
+    - echo "Created tag ${TAG}"
+    - git tag -l "v*"

@@ -1,0 +1,43 @@
+replicaCount: 1
+
+image:
+  name: booking-service
+  tag: 22
+  pullPolicy: Never
+
+service:
+  type: ClusterIP
+  httpPort: 80
+  httpTargetPort: 8080
+  grpcPort: 5555
+  grpcTargetPort: 5555
+
+ENABLE_FEATURE_X: true
+
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: "Development"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 250m
+    memory: 128Mi
+
+livenessProbe:
+  path: /ping
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1
+
+readinessProbe:
+  path: /ping
+  initialDelaySeconds: 3
+  periodSeconds: 5
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1

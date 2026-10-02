@@ -1,0 +1,416 @@
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ gitlab-ci-local build test deploy istio tag
+parsing and downloads finished in 112 ms.
+json schema validated in 204 ms
+build  starting shell (build)
+build  $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+build  $ export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+build  $ export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+build  $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+build  $ echo "IMAGE_NAME=${IMAGE_NAME}"
+build  > IMAGE_NAME=booking-service
+build  $ echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+build  > IMAGE_TAG_V1=v1
+build  $ echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+build  > IMAGE_TAG_V2=v2
+build  $ echo "APP_PORT=${APP_PORT}"
+build  > APP_PORT=8080
+build  $ echo "Building ${IMAGE_NAME}:${IMAGE_TAG_V1} ..."
+build  > Building booking-service:v1 ...
+build  $ docker build -t "${IMAGE_NAME}:${IMAGE_TAG_V1}" -f "${DOCKERFILE_PATH}" "${DOCKERFILE_CONTEXT_PATH}"
+build  > #0 building with "default" instance using docker driver
+build  >
+build  > #1 [internal] load build definition from Dockerfile
+build  > #1 transferring dockerfile: 725B 0.0s done
+build  > #1 DONE 0.0s
+build  >
+build  > #2 [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:10.0
+build  > #2 DONE 0.0s
+build  >
+build  > #3 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:10.0
+build  > #3 DONE 0.0s
+build  >
+build  > #4 [internal] load .dockerignore
+build  > #4 transferring context: 2B 0.0s done
+build  > #4 DONE 0.0s
+build  >
+build  > #5 [base 1/2] FROM mcr.microsoft.com/dotnet/aspnet:10.0
+build  > #5 DONE 0.0s
+build  >
+build  > #6 [build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0
+build  > #6 DONE 0.0s
+build  >
+build  > #7 [internal] load build context
+build  > #7 transferring context: 22.66kB 2.3s done
+build  > #7 DONE 2.4s
+build  >
+build  > #8 [publish 1/1] RUN dotnet publish "BookingService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+build  > #8 CACHED
+build  >
+build  > #9 [base 2/2] WORKDIR /app
+build  > #9 CACHED
+build  >
+build  > #10 [final 1/2] WORKDIR /app
+build  > #10 CACHED
+build  >
+build  > #11 [build 4/7] COPY [Protos/, Protos/]
+build  > #11 CACHED
+build  >
+build  > #12 [build 6/7] COPY . .
+build  > #12 CACHED
+build  >
+build  > #13 [build 7/7] RUN dotnet build "BookingService.csproj" -c Release -o /app/build
+build  > #13 CACHED
+build  >
+build  > #14 [build 3/7] COPY [BookingService.csproj, .]
+build  > #14 CACHED
+build  >
+build  > #15 [build 2/7] WORKDIR /src
+build  > #15 CACHED
+build  >
+build  > #16 [build 5/7] RUN dotnet restore "BookingService.csproj"
+build  > #16 CACHED
+build  >
+build  > #17 [final 2/2] COPY --from=publish /app/publish .
+build  > #17 CACHED
+build  >
+build  > #18 exporting to image
+build  > #18 exporting layers done
+build  > #18 writing image sha256:b9186739ba3d1e9386396bdfeab79b508aef16941dfe1c4177c6a7401b535aca done
+build  > #18 naming to docker.io/library/booking-service:v1 done
+build  > #18 DONE 0.0s
+build  $ docker tag "${IMAGE_NAME}:${IMAGE_TAG_V1}" "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+build  $ docker image inspect "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+build  > [
+build  >     {
+build  >         "Id": "sha256:b9186739ba3d1e9386396bdfeab79b508aef16941dfe1c4177c6a7401b535aca",
+build  >         "RepoTags": [
+build  >             "booking-service:v1",
+build  >             "booking-service:v2"
+build  >         ],
+build  >         "RepoDigests": [],
+build  >         "Comment": "buildkit.dockerfile.v0",
+build  >         "Created": "2026-09-19T14:04:17.072906085Z",
+build  >         "Config": {
+build  >             "User": "1654",
+build  >             "ExposedPorts": {
+build  >                 "5555/tcp": {},
+build  >                 "8080/tcp": {}
+build  >             },
+build  >             "Env": [
+build  >                 "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+build  >                 "APP_UID=1654",
+build  >                 "ASPNETCORE_HTTP_PORTS=8080",
+build  >                 "DOTNET_RUNNING_IN_CONTAINER=true",
+build  >                 "DOTNET_VERSION=10.0.8",
+build  >                 "ASPNET_VERSION=10.0.8"
+build  >             ],
+build  >             "Entrypoint": [
+build  >                 "dotnet",
+build  >                 "BookingService.dll"
+build  >             ],
+build  >             "WorkingDir": "/app",
+build  >             "Labels": {
+build  >                 "org.opencontainers.image.version": "24.04"
+build  >             }
+build  >         },
+build  >         "Architecture": "amd64",
+build  >         "Os": "linux",
+build  >         "Size": 346655630,
+build  >         "GraphDriver": {
+build  >             "Data": {
+build  >                 "LowerDir": "/var/lib/docker/overlay2/kaw331xhx1r9recxsqu79qosi/diff:/var/lib/docker/overlay2/nlruunxy8wa1s0gvs0ysexivm/diff:/var/lib/docker/overlay2/05be2d23bbf51f8b9a06ac4bdab3e1b5a92a7c1f97144fee8a24cd48f59f371f/diff:/var/lib/docker/overlay2/284c92663d7fb96627b7fdbdf7a4aa401860b885a124651662ce160aad879697/diff:/var/lib/docker/overlay2/aa51dccb789b0668406910b51e98d6d593b88a7d20193430360daa01791c06a6/diff:/var/lib/docker/overlay2/9e619c34ba401e7c892cc621595a510b807201f6bc37638b62e8526de56be902/diff:/var/lib/docker/overlay2/22d1fb01d1a48347eea93e5c3b1505e8c991020a449583eb5107348b7b836560/diff:/var/lib/docker/overlay2/0c2f433d464c7faa2ca94625ff24564d7e133199c0c1ef85b12c7361af3974d5/diff",
+build  >                 "MergedDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/merged",
+build  >                 "UpperDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/diff",
+build  >                 "WorkDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/work"
+build  >             },
+build  >             "Name": "overlay2"
+build  >         },
+build  >         "RootFS": {
+build  >             "Type": "layers",
+build  >             "Layers": [
+build  >                 "sha256:98effb2dfe85d4c431f97d90482075f19e5fc3a57c2dd423d8bdfd4813620043",
+build  >                 "sha256:62b6e2b89d7d8b8366bae9ab66c2c571a73894aeb242b300c2b2d534ce78d6df",
+build  >                 "sha256:1774fd6b06e6cc12f96590f32301356c2c48cd8aee5d81de657f45b285fdcd82",
+build  >                 "sha256:4e93e207d02900bb4bccbda7d461af56e6be6734b13bcb0aece14eabf3859549",
+build  >                 "sha256:7834de0e297b1634d76ea532e51ff7c7bc9d583d264b73af6ee954b1375ed64e",
+build  >                 "sha256:56b291414b0df636e6d9f368173194250e2677170d7c5f54dfe8aeec7aa3130f",
+build  >                 "sha256:eadf426ff43690cc7a3083ae100ce41800646567f6e11f1e816b8d8be34d27f3",
+build  >                 "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+build  >                 "sha256:ec757a52b39f025d5a582bdc4ac1f57aab0e8292117ed492c94caa5ceefd6b84"
+build  >             ]
+build  >         },
+build  >         "Metadata": {
+build  >             "LastTagTime": "2026-09-21T19:07:43.811522215Z"
+build  >         }
+build  >     }
+build  > ]
+build  $ docker image inspect "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+build  > [
+build  >     {
+build  >         "Id": "sha256:b9186739ba3d1e9386396bdfeab79b508aef16941dfe1c4177c6a7401b535aca",
+build  >         "RepoTags": [
+build  >             "booking-service:v1",
+build  >             "booking-service:v2"
+build  >         ],
+build  >         "RepoDigests": [],
+build  >         "Comment": "buildkit.dockerfile.v0",
+build  >         "Created": "2026-09-19T14:04:17.072906085Z",
+build  >         "Config": {
+build  >             "User": "1654",
+build  >             "ExposedPorts": {
+build  >                 "5555/tcp": {},
+build  >                 "8080/tcp": {}
+build  >             },
+build  >             "Env": [
+build  >                 "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+build  >                 "APP_UID=1654",
+build  >                 "ASPNETCORE_HTTP_PORTS=8080",
+build  >                 "DOTNET_RUNNING_IN_CONTAINER=true",
+build  >                 "DOTNET_VERSION=10.0.8",
+build  >                 "ASPNET_VERSION=10.0.8"
+build  >             ],
+build  >             "Entrypoint": [
+build  >                 "dotnet",
+build  >                 "BookingService.dll"
+build  >             ],
+build  >             "WorkingDir": "/app",
+build  >             "Labels": {
+build  >                 "org.opencontainers.image.version": "24.04"
+build  >             }
+build  >         },
+build  >         "Architecture": "amd64",
+build  >         "Os": "linux",
+build  >         "Size": 346655630,
+build  >         "GraphDriver": {
+build  >             "Data": {
+build  >                 "LowerDir": "/var/lib/docker/overlay2/kaw331xhx1r9recxsqu79qosi/diff:/var/lib/docker/overlay2/nlruunxy8wa1s0gvs0ysexivm/diff:/var/lib/docker/overlay2/05be2d23bbf51f8b9a06ac4bdab3e1b5a92a7c1f97144fee8a24cd48f59f371f/diff:/var/lib/docker/overlay2/284c92663d7fb96627b7fdbdf7a4aa401860b885a124651662ce160aad879697/diff:/var/lib/docker/overlay2/aa51dccb789b0668406910b51e98d6d593b88a7d20193430360daa01791c06a6/diff:/var/lib/docker/overlay2/9e619c34ba401e7c892cc621595a510b807201f6bc37638b62e8526de56be902/diff:/var/lib/docker/overlay2/22d1fb01d1a48347eea93e5c3b1505e8c991020a449583eb5107348b7b836560/diff:/var/lib/docker/overlay2/0c2f433d464c7faa2ca94625ff24564d7e133199c0c1ef85b12c7361af3974d5/diff",
+build  >                 "MergedDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/merged",
+build  >                 "UpperDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/diff",
+build  >                 "WorkDir": "/var/lib/docker/overlay2/bf44dzgkgtbvk80jqq6adov9c/work"
+build  >             },
+build  >             "Name": "overlay2"
+build  >         },
+build  >         "RootFS": {
+build  >             "Type": "layers",
+build  >             "Layers": [
+build  >                 "sha256:98effb2dfe85d4c431f97d90482075f19e5fc3a57c2dd423d8bdfd4813620043",
+build  >                 "sha256:62b6e2b89d7d8b8366bae9ab66c2c571a73894aeb242b300c2b2d534ce78d6df",
+build  >                 "sha256:1774fd6b06e6cc12f96590f32301356c2c48cd8aee5d81de657f45b285fdcd82",
+build  >                 "sha256:4e93e207d02900bb4bccbda7d461af56e6be6734b13bcb0aece14eabf3859549",
+build  >                 "sha256:7834de0e297b1634d76ea532e51ff7c7bc9d583d264b73af6ee954b1375ed64e",
+build  >                 "sha256:56b291414b0df636e6d9f368173194250e2677170d7c5f54dfe8aeec7aa3130f",
+build  >                 "sha256:eadf426ff43690cc7a3083ae100ce41800646567f6e11f1e816b8d8be34d27f3",
+build  >                 "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+build  >                 "sha256:ec757a52b39f025d5a582bdc4ac1f57aab0e8292117ed492c94caa5ceefd6b84"
+build  >             ]
+build  >         },
+build  >         "Metadata": {
+build  >             "LastTagTime": "2026-09-21T19:07:43.811522215Z"
+build  >         }
+build  >     }
+build  > ]
+build  $ echo "Images built (one build, tags ${IMAGE_TAG_V1} and ${IMAGE_TAG_V2})."
+build  > Images built (one build, tags v1 and v2).
+build  finished in 3.88 s
+test   starting shell (test)
+test   $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+test   $ export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+test   $ export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+test   $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+test   $ echo "IMAGE_NAME=${IMAGE_NAME}"
+test   > IMAGE_NAME=booking-service
+test   $ echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+test   > IMAGE_TAG_V1=v1
+test   $ echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+test   > IMAGE_TAG_V2=v2
+test   $ echo "APP_PORT=${APP_PORT}"
+test   > APP_PORT=8080
+test   $ docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+test   $ docker run -d --name "${IMAGE_NAME}-test" -p "${TEST_HOST_PORT}:${APP_PORT}" "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+test   > 72360e6c1a2ae5a84d6a33013a1e8a029d1cefbccd8fa2bbb29920c9c9f84716
+test   $ ok=0 # collapsed multi-line command
+test   > ✅ /ping -> pong
+test   $ docker rm -f "${IMAGE_NAME}-test"
+test   > booking-service-test
+test   Running after script...
+test   $ docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+test   finished in 1.89 s
+deploy starting shell (deploy)
+deploy $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+deploy $ export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+deploy $ export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+deploy $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+deploy $ echo "IMAGE_NAME=${IMAGE_NAME}"
+deploy > IMAGE_NAME=booking-service
+deploy $ echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+deploy > IMAGE_TAG_V1=v1
+deploy $ echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+deploy > IMAGE_TAG_V2=v2
+deploy $ echo "APP_PORT=${APP_PORT}"
+deploy > APP_PORT=8080
+deploy $ echo "Loading images into minikube..."
+deploy > Loading images into minikube...
+deploy $ minikube image load "${IMAGE_NAME}:${IMAGE_TAG_V1}"
+deploy > still running...
+deploy > still running...
+deploy $ minikube image load "${IMAGE_NAME}:${IMAGE_TAG_V2}"
+deploy > still running...
+deploy > still running...
+deploy $ helm upgrade --install "${RELEASE_NAME_V1}" "${CHART_PATH}" --namespace default -f "${VALUES_PATH}" --wait --timeout 120s # collapsed multi-line command
+deploy > Release "booking-service-v1" has been upgraded. Happy Helming!
+deploy > NAME: booking-service-v1
+deploy > LAST DEPLOYED: Mon Sep 21 22:08:32 2026
+deploy > NAMESPACE: default
+deploy > STATUS: deployed
+deploy > REVISION: 3
+deploy > DESCRIPTION: Upgrade complete
+deploy > TEST SUITE: None
+deploy $ helm upgrade --install "${RELEASE_NAME_V2}" "${CHART_PATH}" --namespace default -f "${VALUES_PATH_V2}" --wait --timeout 120s # collapsed multi-line command
+deploy > Release "booking-service-v2" has been upgraded. Happy Helming!
+deploy > NAME: booking-service-v2
+deploy > LAST DEPLOYED: Mon Sep 21 22:08:33 2026
+deploy > NAMESPACE: default
+deploy > STATUS: deployed
+deploy > REVISION: 3
+deploy > DESCRIPTION: Upgrade complete
+deploy > TEST SUITE: None
+deploy $ kubectl rollout status deployment/"${RELEASE_NAME_V1}" --timeout=120s
+deploy > deployment "booking-service-v1" successfully rolled out
+deploy $ kubectl rollout status deployment/"${RELEASE_NAME_V2}" --timeout=120s
+deploy > deployment "booking-service-v2" successfully rolled out
+deploy finished in 47 s
+istio  starting shell (istio)
+istio  $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+istio  $ export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+istio  $ export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+istio  $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+istio  $ echo "IMAGE_NAME=${IMAGE_NAME}"
+istio  > IMAGE_NAME=booking-service
+istio  $ echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+istio  > IMAGE_TAG_V1=v1
+istio  $ echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+istio  > IMAGE_TAG_V2=v2
+istio  $ echo "APP_PORT=${APP_PORT}"
+istio  > APP_PORT=8080
+istio  $ if kubectl get crd virtualservices.networking.istio.io >/dev/null 2>&1; then # collapsed multi-line command
+istio  > gateway.networking.istio.io/booking-gateway unchanged
+istio  > destinationrule.networking.istio.io/booking-service unchanged
+istio  > virtualservice.networking.istio.io/booking-service configured
+istio  > envoyfilter.networking.istio.io/booking-feature-flag unchanged
+istio  > Warning: EnvoyFilter exposes internal implementation details that may change at any time. Prefer other APIs if possible, and exercise extreme caution, especially around upgrades.
+istio  > envoyfilter.networking.istio.io/booking-v1-fallback created
+istio  finished in 1.19 s
+tag    starting shell (tag)
+tag    $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+tag    $ export IMAGE_TAG_V1="$(yq -r '.image.tag' "${VALUES_PATH}")"
+tag    $ export IMAGE_TAG_V2="$(yq -r '.image.tag' "${VALUES_PATH_V2}")"
+tag    $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+tag    $ echo "IMAGE_NAME=${IMAGE_NAME}"
+tag    > IMAGE_NAME=booking-service
+tag    $ echo "IMAGE_TAG_V1=${IMAGE_TAG_V1}"
+tag    > IMAGE_TAG_V1=v1
+tag    $ echo "IMAGE_TAG_V2=${IMAGE_TAG_V2}"
+tag    > IMAGE_TAG_V2=v2
+tag    $ echo "APP_PORT=${APP_PORT}"
+tag    > APP_PORT=8080
+tag    $ TAG="v$(date +%Y%m%d-%H%M%S)"
+tag    $ git tag -a "${TAG}" -m "CI release ${TAG} (pipeline ${CI_PIPELINE_ID:-local})"
+tag    $ echo "Created tag ${TAG}"
+tag    > Created tag v20260921-220834
+tag    $ git tag -l "v*"
+tag    > v20260913-162350
+tag    > v20260915-213232
+tag    > v20260915-213904
+tag    > v20260915-215514
+tag    > v20260915-220542
+tag    > v20260915-220824
+tag    > v20260915-233143
+tag    > v20260916-205706
+tag    > v20260919-154637
+tag    > v20260921-174104
+tag    > v20260921-205133
+tag    > v20260921-220834
+tag    finished in 320 ms
+
+ PASS  build
+ PASS  test
+ PASS  deploy
+ PASS  istio
+ PASS  tag
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ ./check-
+check-canary.sh        check-fallback.sh      check-feature-flag.sh  check-istio.sh
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ ./check-istio.sh
+▶️ Проверка установки Istio...
+NAME                                    READY   STATUS    RESTARTS   AGE
+istio-egressgateway-78fdf567d6-pxg8b    1/1     Running   0          2d6h
+istio-ingressgateway-549c779dcf-gg852   1/1     Running   0          3h45m
+istiod-6b4547bb4f-cksfm                 1/1     Running   0          2d6h
+
+▶️ Ожидание готовности istiod и istio-ingressgateway...
+pod/istiod-6b4547bb4f-cksfm condition met
+pod/istio-ingressgateway-549c779dcf-gg852 condition met
+
+▶️ Проверка автоинъекции Istio в namespace default...
+istio-injection=enabled
+
+▶️ Проверка sidecar-прокси (istio-proxy) у подов booking-service...
+NAME                                  READY   STATUS    RESTARTS   AGE     IP            NODE       NOMINATED NODE   READINESS GATES
+booking-service-v1-6c5958744b-lk2xt   2/2     Running   0          4h21m   10.244.0.28   minikube   <none>           <none>
+booking-service-v1-6c5958744b-r6rxw   2/2     Running   0          76m     10.244.0.32   minikube   <none>           <none>
+booking-service-v2-64bf865ff8-96cgn   2/2     Running   0          4h21m   10.244.0.27   minikube   <none>           <none>
+
+▶️ Где размещён istio-proxy (containers / initContainers, native sidecar):
+booking-service-v1-6c5958744b-lk2xt  containers=booking-service  init=istio-init istio-proxy
+booking-service-v1-6c5958744b-r6rxw  containers=booking-service  init=istio-init istio-proxy
+booking-service-v2-64bf865ff8-96cgn  containers=booking-service  init=istio-init istio-proxy
+
+Подов booking-service: 3, с sidecar istio-proxy: 3
+
+✅ Istio установлен, автоинъекция включена, sidecar'ы на месте.
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ ./check-canary.sh
+▶️ Проверяем canary release (~10% v2, rest v1)...
+▶️ Поднимаю port-forward: localhost:9090 -> istio-ingressgateway:80...
+Результаты: v1=180, v2=20, ошибок=0 (всего запросов: 200)
+Доля v2: 10.0% (ожидается ~10% ± 5%)
+
+✅ Canary release работает: ~90% v1 / ~10% v2
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ ./check-feature-flag.sh
+▶️ Проверка Feature Flag (X-Feature-Enabled: true)...
+▶️ Поднимаю port-forward: localhost:9090 -> istio-ingressgateway:80...
+
+— Запросы с X-Feature-Enabled: true (ожидаем 100% v2) —
+Ответов от v2: 30/30
+
+— Контрольный прогон без заголовка (ожидаем ~10% v2) —
+Ответов от v2 без заголовка: 0/30, валидных ответов: 30/30
+
+✅ Feature flag через EnvoyFilter работает: с заголовком весь трафик идёт на v2.
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ ./check-fallback.sh
+▶️ Тестируем fallback v1 -> v2 (EnvoyFilter booking-v1-fallback + Lua)...
+▶️ Поднимаю port-forward: localhost:9090 -> istio-ingressgateway:80...
+
+▶️ Текущие поды booking-service:
+NAME                                  READY   STATUS    RESTARTS   AGE     IP            NODE       NOMINATED NODE   READINESS GATES
+booking-service-v1-6c5958744b-lk2xt   2/2     Running   0          4h22m   10.244.0.28   minikube   <none>           <none>
+booking-service-v1-6c5958744b-r6rxw   2/2     Running   0          77m     10.244.0.32   minikube   <none>           <none>
+booking-service-v2-64bf865ff8-96cgn   2/2     Running   0          4h22m   10.244.0.27   minikube   <none>           <none>
+
+▶️ Убираем все endpoint'ы v1: scale booking-service-v1 0 (было реплик: 2)
+deployment.apps/booking-service-v1 scaled
+▶️ Ждём распространения конфига и прогреваем маршрут (10 запросов, не учитываются)...
+
+▶️ Отправляем 50 запросов при полностью недоступном v1...
+Ответов от v2: 50, ответов от v1: 0, ошибок: 0 из 50
+
+✅ Fallback работает: при полном отказе v1 все 50 запросов обслужены v2.
+▶️ booking-service-v1 будет возвращён к 2 репликам.
+
+▶️ Возвращаю booking-service-v1 (replicas=2)...
+Waiting for deployment "booking-service-v1" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "booking-service-v1" rollout to finish: 1 of 2 updated replicas are available...
+deployment "booking-service-v1" successfully rolled out
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task5$ kubectl get pods
+NAME                                  READY   STATUS    RESTARTS   AGE
+booking-service-v1-6c5958744b-lqppj   2/2     Running   0          41s
+booking-service-v1-6c5958744b-ndgfr   2/2     Running   0          41s
+booking-service-v2-64bf865ff8-96cgn   2/2     Running   0          4h23m

@@ -3,16 +3,39 @@ replicaCount: 1
 image:
   name: booking-service
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
 
 service:
   type: ClusterIP
-  port: 80
-  targetPort: 8080
+  httpPort: 80
+  httpTargetPort: 8080
+  grpcPort: 5555
+  grpcTargetPort: 5555
+
+ENABLE_FEATURE_X: false
+
+env: []
 
 resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 500m
+    memory: 128Mi
 
 livenessProbe:
+  path: /ping
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1
 
 readinessProbe:
-
+  path: /ping
+  initialDelaySeconds: 3
+  periodSeconds: 5
+  timeoutSeconds: 2
+  failureThreshold: 3
+  successThreshold: 1

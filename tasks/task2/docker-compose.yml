@@ -15,7 +15,64 @@ services:
       SPRING_DATASOURCE_USERNAME: hotelio
       SPRING_DATASOURCE_PASSWORD: hotelio
       BOOKING_SERVICE_EXTERNAL_HOST: booking-service
-      BOOKING_SERVICE_EXTERNAL_PORT: 9090
+      BOOKING_SERVICE_EXTERNAL_PORT: 5555
+
+  booking-service-migrate:
+    build:
+      context: ../../booking-service/BookingService
+      dockerfile: Dockerfile
+    command: [ "--migrate" ]
+    networks:
+      - hotelio-net
+    environment:
+      ConnectionStrings__Db: "Host=booking-service-db;Port=5432;Database=booking;Username=booking;Password=booking"
+    depends_on:
+      booking-service-db:
+        condition: service_started
+  booking-service:
+    build:
+      context: ../../booking-service/BookingService
+      dockerfile: Dockerfile
+    networks:
+      - hotelio-net
+    environment:
+      ConnectionStrings__Db: "Host=booking-service-db;Port=5432;Database=booking;Username=booking;Password=booking"
+      HotelioClient__BaseAddress: "http://monolith:8080/api/"
+      Kafka__BootstrapServers: "kafka:9092"
+      Kafka__Topic__Name: "orders.created"
+      Kestrel__Endpoints__Grpc__Url: "http://0.0.0.0:5555"
+    ports:
+      - "5555:5555"
+    depends_on:
+      booking-service-migrate:
+        condition: service_completed_successfully
+
+  booking-history-service-migrate:
+    build:
+      context: ../../booking-service/BookingHistoryService
+      dockerfile: Dockerfile
+    command: [ "--migrate" ]
+    networks:
+      - hotelio-net
+    environment:
+      ConnectionStrings__Db: "Host=booking-history-service-db;Port=5432;Database=booking-history;Username=booking-history;Password=booking-history"
+    depends_on:
+      booking-history-service-db:
+        condition: service_started
+  booking-history-service:
+    build:
+      context: ../../booking-service/BookingHistoryService
+      dockerfile: Dockerfile
+    networks:
+      - hotelio-net
+    environment:
+      ConnectionStrings__Db: "Host=booking-history-service-db;Port=5432;Database=booking-history;Username=booking-history;Password=booking-history"
+      Kafka__BootstrapServers: "kafka:9092"
+      Kafka__Topic__Name: "orders.created"
+      Kafka__ConsumerGroup__Name: "booking-history-service"
+    depends_on:
+      booking-history-service-migrate:
+        condition: service_completed_successfully
 
   monolith-db:
     image: postgres:15
@@ -28,6 +85,34 @@ services:
       - "5432:5432"
     volumes:
       - monolith-db-data:/var/lib/postgresql/data
+    networks:
+      - hotelio-net
+
+  booking-service-db:
+    image: postgres:15
+    container_name: booking-service-db
+    environment:
+      POSTGRES_USER: booking
+      POSTGRES_PASSWORD: booking
+      POSTGRES_DB: booking
+    ports:
+      - "5433:5432"
+    volumes:
+      - booking-service-db-data:/var/lib/postgresql/data
+    networks:
+      - hotelio-net
+
+  booking-history-service-db:
+    image: postgres:15
+    container_name: booking-history-service-db
+    environment:
+      POSTGRES_USER: booking-history
+      POSTGRES_PASSWORD: booking-history
+      POSTGRES_DB: booking-history
+    ports:
+      - "5434:5432"
+    volumes:
+      - booking-history-service-db-data:/var/lib/postgresql/data
     networks:
       - hotelio-net
 
@@ -51,9 +136,25 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     networks:
       - hotelio-net
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8090:8081"
+    environment:
+      SERVER_PORT: 8081
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+    depends_on:
+      - kafka
+      - zookeeper
+    networks:
+      - hotelio-net
 
 volumes:
   monolith-db-data:
+  booking-service-db-data:
+  booking-history-service-db-data:
 
 networks:
   hotelio-net:

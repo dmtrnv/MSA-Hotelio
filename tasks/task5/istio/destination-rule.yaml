@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: booking-service
+  namespace: default
+spec:
+  host: booking-service
+  subsets:
+    - name: v1
+      labels:
+        app: booking-service
+        version: v1
+    - name: v2
+      labels:
+        app: booking-service
+        version: v2
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        maxConnections: 100
+      http:
+        http1MaxPendingRequests: 10
+        http2MaxRequests: 100
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutive5xxErrors: 3
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100

@@ -1,0 +1,235 @@
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task4$ gitlab-ci-local build test deploy tag
+parsing and downloads finished in 68 ms.
+json schema validated in 163 ms
+build  starting shell (build)
+build  $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+build  $ export IMAGE_TAG="$(yq -r '.image.tag' "${VALUES_PATH}")"
+build  $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+build  $ echo "IMAGE_NAME=${IMAGE_NAME}"
+build  > IMAGE_NAME=booking-service
+build  $ echo "IMAGE_TAG=${IMAGE_TAG}"
+build  > IMAGE_TAG=22
+build  $ echo "APP_PORT=${APP_PORT}"
+build  > APP_PORT=8080
+build  $ echo "Building ${IMAGE_NAME}:${IMAGE_TAG} ..."
+build  > Building booking-service:22 ...
+build  $ docker build -t "${IMAGE_NAME}:${IMAGE_TAG}" -f "${DOCKERFILE_PATH}" "${DOCKERFILE_CONTEXT_PATH}"
+build  > #0 building with "default" instance using docker driver
+build  >
+build  > #1 [internal] load build definition from Dockerfile
+build  > #1 transferring dockerfile: 725B done
+build  > #1 DONE 0.0s
+build  >
+build  > #2 [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:10.0
+build  > #2 DONE 0.0s
+build  >
+build  > #3 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:10.0
+build  > #3 DONE 0.0s
+build  >
+build  > #4 [internal] load .dockerignore
+build  > #4 transferring context: 2B 0.0s done
+build  > #4 DONE 0.0s
+build  >
+build  > #5 [build 1/7] FROM mcr.microsoft.com/dotnet/sdk:10.0
+build  > #5 DONE 0.0s
+build  >
+build  > #6 [base 1/2] FROM mcr.microsoft.com/dotnet/aspnet:10.0
+build  > #6 DONE 0.0s
+build  >
+build  > #7 [internal] load build context
+build  > #7 transferring context: 24.11kB 1.4s done
+build  > #7 DONE 1.4s
+build  >
+build  > #8 [build 2/7] WORKDIR /src
+build  > #8 CACHED
+build  >
+build  > #9 [build 3/7] COPY [BookingService.csproj, .]
+build  > #9 CACHED
+build  >
+build  > #10 [build 4/7] COPY [Protos/, Protos/]
+build  > #10 CACHED
+build  >
+build  > #11 [build 5/7] RUN dotnet restore "BookingService.csproj"
+build  > #11 CACHED
+build  >
+build  > #12 [build 6/7] COPY . .
+build  > #12 DONE 0.2s
+build  >
+build  > #13 [build 7/7] RUN dotnet build "BookingService.csproj" -c Release -o /app/build
+build  > #13 0.840   Determining projects to restore...
+build  > #13 2.759   Restored /src/BookingService.csproj (in 1.63 sec).
+build  > #13 5.347   BookingService -> /app/build/BookingService.dll
+build  > #13 5.360
+build  > #13 5.360 Build succeeded.
+build  > #13 5.360     0 Warning(s)
+build  > #13 5.360     0 Error(s)
+build  > #13 5.360
+build  > #13 5.360 Time Elapsed 00:00:04.86
+build  > #13 DONE 5.4s
+build  >
+build  > #14 [publish 1/1] RUN dotnet publish "BookingService.csproj" -c Release -o /app/publish /p:UseAppHost=false
+build  > #14 0.796   Determining projects to restore...
+build  > #14 1.098   All projects are up-to-date for restore.
+build  > #14 1.639   BookingService -> /src/bin/Release/net10.0/BookingService.dll
+build  > #14 1.723   BookingService -> /app/publish/
+build  > #14 DONE 1.8s
+build  >
+build  > #15 [base 2/2] WORKDIR /app
+build  > #15 CACHED
+build  >
+build  > #16 [final 1/2] WORKDIR /app
+build  > #16 CACHED
+build  >
+build  > #17 [final 2/2] COPY --from=publish /app/publish .
+build  > #17 DONE 0.1s
+build  >
+build  > #18 exporting to image
+build  > #18 exporting layers
+build  > #18 exporting layers 0.2s done
+build  > #18 writing image sha256:36ec6665361952442592b3b10b0e3a5c1ff059f5d016746aac7ec6a4245fb8d7 done
+build  > #18 naming to docker.io/library/booking-service:22 done
+build  > #18 DONE 0.2s
+build  $ docker image inspect "${IMAGE_NAME}:${IMAGE_TAG}"
+build  > [
+build  >     {
+build  >         "Id": "sha256:36ec6665361952442592b3b10b0e3a5c1ff059f5d016746aac7ec6a4245fb8d7",
+build  >         "RepoTags": [
+build  >             "booking-service:22"
+build  >         ],
+build  >         "RepoDigests": [],
+build  >         "Comment": "buildkit.dockerfile.v0",
+build  >         "Created": "2026-09-16T17:56:37.277112997Z",
+build  >         "Config": {
+build  >             "User": "1654",
+build  >             "ExposedPorts": {
+build  >                 "5555/tcp": {},
+build  >                 "8080/tcp": {}
+build  >             },
+build  >             "Env": [
+build  >                 "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+build  >                 "APP_UID=1654",
+build  >                 "ASPNETCORE_HTTP_PORTS=8080",
+build  >                 "DOTNET_RUNNING_IN_CONTAINER=true",
+build  >                 "DOTNET_VERSION=10.0.8",
+build  >                 "ASPNET_VERSION=10.0.8"
+build  >             ],
+build  >             "Entrypoint": [
+build  >                 "dotnet",
+build  >                 "BookingService.dll"
+build  >             ],
+build  >             "WorkingDir": "/app",
+build  >             "Labels": {
+build  >                 "org.opencontainers.image.version": "24.04"
+build  >             }
+build  >         },
+build  >         "Architecture": "amd64",
+build  >         "Os": "linux",
+build  >         "Size": 346654550,
+build  >         "GraphDriver": {
+build  >             "Data": {
+build  >                 "LowerDir": "/var/lib/docker/overlay2/kaw331xhx1r9recxsqu79qosi/diff:/var/lib/docker/overlay2/nlruunxy8wa1s0gvs0ysexivm/diff:/var/lib/docker/overlay2/05be2d23bbf51f8b9a06ac4bdab3e1b5a92a7c1f97144fee8a24cd48f59f371f/diff:/var/lib/docker/overlay2/284c92663d7fb96627b7fdbdf7a4aa401860b885a124651662ce160aad879697/diff:/var/lib/docker/overlay2/aa51dccb789b0668406910b51e98d6d593b88a7d20193430360daa01791c06a6/diff:/var/lib/docker/overlay2/9e619c34ba401e7c892cc621595a510b807201f6bc37638b62e8526de56be902/diff:/var/lib/docker/overlay2/22d1fb01d1a48347eea93e5c3b1505e8c991020a449583eb5107348b7b836560/diff:/var/lib/docker/overlay2/0c2f433d464c7faa2ca94625ff24564d7e133199c0c1ef85b12c7361af3974d5/diff",
+build  >                 "MergedDir": "/var/lib/docker/overlay2/714p7a22khatv30kh5kn3plhh/merged",
+build  >                 "UpperDir": "/var/lib/docker/overlay2/714p7a22khatv30kh5kn3plhh/diff",
+build  >                 "WorkDir": "/var/lib/docker/overlay2/714p7a22khatv30kh5kn3plhh/work"
+build  >             },
+build  >             "Name": "overlay2"
+build  >         },
+build  >         "RootFS": {
+build  >             "Type": "layers",
+build  >             "Layers": [
+build  >                 "sha256:98effb2dfe85d4c431f97d90482075f19e5fc3a57c2dd423d8bdfd4813620043",
+build  >                 "sha256:62b6e2b89d7d8b8366bae9ab66c2c571a73894aeb242b300c2b2d534ce78d6df",
+build  >                 "sha256:1774fd6b06e6cc12f96590f32301356c2c48cd8aee5d81de657f45b285fdcd82",
+build  >                 "sha256:4e93e207d02900bb4bccbda7d461af56e6be6734b13bcb0aece14eabf3859549",
+build  >                 "sha256:7834de0e297b1634d76ea532e51ff7c7bc9d583d264b73af6ee954b1375ed64e",
+build  >                 "sha256:56b291414b0df636e6d9f368173194250e2677170d7c5f54dfe8aeec7aa3130f",
+build  >                 "sha256:eadf426ff43690cc7a3083ae100ce41800646567f6e11f1e816b8d8be34d27f3",
+build  >                 "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+build  >                 "sha256:5a8eccc118c17fb1b316ae0da22060ffc8d28018d4670fc09b3de7e332c057c2"
+build  >             ]
+build  >         },
+build  >         "Metadata": {
+build  >             "LastTagTime": "2026-09-16T17:56:37.469656049Z"
+build  >         }
+build  >     }
+build  > ]
+build  $ echo "Image built."
+build  > Image built.
+build  finished in 10 s
+test   starting shell (test)
+test   $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+test   $ export IMAGE_TAG="$(yq -r '.image.tag' "${VALUES_PATH}")"
+test   $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+test   $ echo "IMAGE_NAME=${IMAGE_NAME}"
+test   > IMAGE_NAME=booking-service
+test   $ echo "IMAGE_TAG=${IMAGE_TAG}"
+test   > IMAGE_TAG=22
+test   $ echo "APP_PORT=${APP_PORT}"
+test   > APP_PORT=8080
+test   $ docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+test   $ docker run -d --name "${IMAGE_NAME}-test" -p "${TEST_HOST_PORT}:${APP_PORT}" "${IMAGE_NAME}:${IMAGE_TAG}"
+test   > 56e4bd2339214ee66676ed873ab9c94ecfcf54d5fc8db4cad0682a2297d76a1f
+test   $ ok=0 # collapsed multi-line command
+test   > ✅ /ping -> pong
+test   $ docker rm -f "${IMAGE_NAME}-test"
+test   > booking-service-test
+test   Running after script...
+test   $ docker rm -f "${IMAGE_NAME}-test" >/dev/null 2>&1 || true
+test   finished in 1.68 s
+deploy starting shell (deploy)
+deploy $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+deploy $ export IMAGE_TAG="$(yq -r '.image.tag' "${VALUES_PATH}")"
+deploy $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+deploy $ echo "IMAGE_NAME=${IMAGE_NAME}"
+deploy > IMAGE_NAME=booking-service
+deploy $ echo "IMAGE_TAG=${IMAGE_TAG}"
+deploy > IMAGE_TAG=22
+deploy $ echo "APP_PORT=${APP_PORT}"
+deploy > APP_PORT=8080
+deploy $ echo "Loading image into minikube..."
+deploy > Loading image into minikube...
+deploy $ minikube image load "${IMAGE_NAME}:${IMAGE_TAG}"
+deploy > still running...
+deploy > still running...
+deploy $ helm upgrade --install "${RELEASE_NAME}" "${CHART_PATH}" --namespace default -f "${VALUES_PATH}" --wait --timeout 120s # collapsed multi-line command
+deploy > Release "booking-service" has been upgraded. Happy Helming!
+deploy > NAME: booking-service
+deploy > LAST DEPLOYED: Wed Sep 16 20:57:00 2026
+deploy > NAMESPACE: default
+deploy > STATUS: deployed
+deploy > REVISION: 11
+deploy > DESCRIPTION: Upgrade complete
+deploy > TEST SUITE: None
+deploy $ kubectl rollout status deployment/"${RELEASE_NAME}" --timeout=120s
+deploy > deployment "booking-service" successfully rolled out
+deploy finished in 27 s
+tag    starting shell (tag)
+tag    $ export IMAGE_NAME="$(yq -r '.image.name' "${VALUES_PATH}")"
+tag    $ export IMAGE_TAG="$(yq -r '.image.tag' "${VALUES_PATH}")"
+tag    $ export APP_PORT="$(yq -r '.service.httpTargetPort' "${VALUES_PATH}")"
+tag    $ echo "IMAGE_NAME=${IMAGE_NAME}"
+tag    > IMAGE_NAME=booking-service
+tag    $ echo "IMAGE_TAG=${IMAGE_TAG}"
+tag    > IMAGE_TAG=22
+tag    $ echo "APP_PORT=${APP_PORT}"
+tag    > APP_PORT=8080
+tag    $ TAG="v$(date +%Y%m%d-%H%M%S)"
+tag    $ git tag -a "${TAG}" -m "CI release ${TAG} (pipeline ${CI_PIPELINE_ID:-local})"
+tag    $ echo "Created tag ${TAG}"
+tag    > Created tag v20260916-205706
+tag    $ git tag -l "v*"
+tag    > v20260913-162350
+tag    > v20260915-213232
+tag    > v20260915-213904
+tag    > v20260915-215514
+tag    > v20260915-220542
+tag    > v20260915-220824
+tag    > v20260915-233143
+tag    > v20260916-205706
+tag    finished in 216 ms
+
+ PASS  build
+ PASS  test
+ PASS  deploy
+ PASS  tag
+dmtrnv@DESKTOP-FEF9D0A:/mnt/c/users/renev/IdeaProjects/MSA-Hotelio/tasks/task4$

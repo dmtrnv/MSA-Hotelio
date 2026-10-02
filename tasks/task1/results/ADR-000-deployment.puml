@@ -1,0 +1,49 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+LAYOUT_WITH_LEGEND()
+
+Deployment_Node(client, "Client", "Web / Mobile") {
+    Container(clientApp, "Frontend", "Web/Mobile")
+}
+
+Deployment_Node(cluster, "Kubernetes Cluster", "Cloud") {
+    Deployment_Node(edge, "Edge") {
+        Container(gateway, "API Gateway", "Gateway / Ingress")
+        Container(bff, "GraphQL BFF", "NodeJS")
+    }
+    Deployment_Node(observability, "Observability") {
+        Container(observabilityTools, "Observability", "OTel, Prometheus, Grafana, Loki, Tempo", "Метрики, логи, трейсы, алерты")
+    }
+    Deployment_Node(services, "Service Mesh") {
+        Container(hotel, "Hotel Service", "Spring Boot")
+        Container(booking, "Booking Service", "Spring Boot")
+        Container(userSvc, "User Service", "Spring Boot")
+        Container(review, "Review Service", "Spring Boot")
+        Container(promo, "Promo Service", "Spring Boot")
+    }
+}
+
+Deployment_Node(data, "Managed PostgreSQL") {
+    ContainerDb(hotelDb, "Hotel DB", "PostgreSQL")
+    ContainerDb(bookingDb, "Booking DB", "PostgreSQL")
+    ContainerDb(userDb, "User DB", "PostgreSQL")
+    ContainerDb(reviewDb, "Review DB", "PostgreSQL")
+    ContainerDb(promoDb, "Promo DB", "PostgreSQL")
+}
+
+Rel(clientApp, gateway, "HTTPS")
+Rel(gateway, bff, "HTTP")
+Rel(bff, hotel, "HTTP")
+Rel(bff, booking, "HTTP")
+Rel(bff, userSvc, "HTTP")
+Rel(bff, review, "HTTP")
+Rel(bff, promo, "HTTP")
+
+Rel(hotel, hotelDb, "SQL")
+Rel(booking, bookingDb, "SQL")
+Rel(userSvc, userDb, "SQL")
+Rel(review, reviewDb, "SQL")
+Rel(promo, promoDb, "SQL")
+
+@enduml
